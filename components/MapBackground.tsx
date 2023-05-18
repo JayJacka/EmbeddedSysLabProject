@@ -6,11 +6,23 @@ import { SmallWaypoint } from "./waypoint/SmallWaypoint";
 
 const waterDis = [
   {
+    id: 1,
     position: { lat: 13.736785800000003, lng: 100.53269589418949 },
     safe: true,
   },
   {
+    id: 2,
     position: { lat: 13.736817210935303, lng: 100.53337530387972 },
+    safe: false,
+  },
+  {
+    id: 3,
+    position: { lat: 13.736866985703676, lng: 100.53419730166667 },
+    safe: true,
+  },
+  {
+    id: 4,
+    position: { lat: 13.736081627069641, lng: 100.53387911263876 },
     safe: false,
   },
 ];
@@ -23,6 +35,7 @@ export const MapBackground = () => {
 
   const [mapRef, setMapRef] = useState<google.maps.Map | null>(null);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
+  const [activeMarker, setActiveMarker] = useState<number | null>(null);
 
   const mapCenter = useMemo(
     () => ({ lat: 13.736785800000003, lng: 100.53269589418949 }),
@@ -34,9 +47,21 @@ export const MapBackground = () => {
     setIsMapLoaded(true);
   };
 
-  const handleMarkerClick = (lat: number, lng: number) => {
-    console.log("handleMarkerClick", lat, lng);
-    mapRef?.panTo({ lat, lng });
+  const handleMarkerClick = (waypoint: {
+    id: number;
+    position: { lat: number; lng: number };
+    safe: boolean;
+  }) => {
+    setActiveMarker(waypoint.id);
+    console.log(
+      "handleMarkerClick",
+      waypoint.position.lat,
+      waypoint.position.lng
+    );
+    mapRef?.panTo({
+      lat: waypoint.position.lat - 0.00025,
+      lng: waypoint.position.lng,
+    });
   };
 
   const mapOptions = useMemo<google.maps.MapOptions>(
@@ -44,6 +69,7 @@ export const MapBackground = () => {
       disableDefaultUI: true,
       clickableIcons: false,
       scrollwheel: false,
+      gestureHandling: "greedy",
     }),
     []
   );
@@ -66,18 +92,15 @@ export const MapBackground = () => {
           mapTypeId={google.maps.MapTypeId.ROADMAP}
           mapContainerStyle={{ width: "100vw", height: "100vh" }}
           onLoad={onMapLoad}
+          onClick={() => setActiveMarker(null)}
         >
           {isMapLoaded &&
             waterDis.map((waypoint, index) => (
               <SmallWaypoint
                 key={index}
                 waypoint={waypoint}
-                recenter={() =>
-                  handleMarkerClick(
-                    waypoint.position.lat,
-                    waypoint.position.lng
-                  )
-                }
+                recenter={() => handleMarkerClick(waypoint)}
+                active={waypoint.id === activeMarker}
               />
             ))}
         </GoogleMap>
