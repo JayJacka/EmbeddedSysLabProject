@@ -8,7 +8,13 @@ export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [waypoint, setWaypoint] = useState<any>(null);
 
-  const handleModalOpen = (waypoint: any) => {
+  interface waypoint {
+    id: number;
+    position: { lat: number; lng: number };
+    safe: boolean;
+  }
+
+  const handleModalOpen = (waypoint: waypoint) => {
     console.log("handleModalOpen", waypoint);
     setWaypoint(waypoint);
     setModalOpen(true);

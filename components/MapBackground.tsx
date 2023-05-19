@@ -1,7 +1,7 @@
 "use client";
 
 import { GoogleMap, MarkerF, useLoadScript } from "@react-google-maps/api";
-import { use, useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SmallWaypoint } from "./waypoint/SmallWaypoint";
 
 const waterDis = [
@@ -32,8 +32,8 @@ interface mapBackgroundInterface {
     id: number;
     position: { lat: number; lng: number };
     safe: boolean;
-  }) => {},
-  handleModalClose: () => {},
+  }) => void;
+  handleModalClose: () => void;
 }
 
 export const MapBackground = (props: mapBackgroundInterface) => {
