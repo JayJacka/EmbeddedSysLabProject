@@ -27,7 +27,7 @@ const waterDis = [
   },
 ];
 
-export const MapBackground = () => {
+export const MapBackground = (props: any) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY as string,
     libraries: ["places"],
@@ -62,6 +62,11 @@ export const MapBackground = () => {
       lat: waypoint.position.lat - 0.00025,
       lng: waypoint.position.lng,
     });
+    if (mapRef) {
+      if (mapRef.getZoom() !== 18) {
+        mapRef.setZoom(18);
+      }
+    }
   };
 
   const mapOptions = useMemo<google.maps.MapOptions>(
@@ -92,13 +97,17 @@ export const MapBackground = () => {
           mapTypeId={google.maps.MapTypeId.ROADMAP}
           mapContainerStyle={{ width: "100vw", height: "100vh" }}
           onLoad={onMapLoad}
-          onClick={() => setActiveMarker(null)}
+          onClick={() => {
+            setActiveMarker(null);
+            props.handleModalClose();
+          }}
         >
           {isMapLoaded &&
             waterDis.map((waypoint, index) => (
               <SmallWaypoint
                 key={index}
                 waypoint={waypoint}
+                handleOpenModal={() => props.handleModalOpen(waypoint)}
                 recenter={() => handleMarkerClick(waypoint)}
                 active={waypoint.id === activeMarker}
               />
