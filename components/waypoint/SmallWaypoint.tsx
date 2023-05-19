@@ -72,7 +72,17 @@ const bigGreenMarkerSVG =
   '<path d="M40.4998 63C49.2153 63 56.3066 55.9104 56.3066 47.1955C56.3066 38.6603 41.4927 19.2888 40.8618 18.4686L40.4998 18L40.1379 18.4717C39.5079 19.2903 24.6933 38.6632 24.6933 47.197C24.6934 55.9104 31.7845 63 40.4998 63Z" fill="#146c94" fill-rule="nonzero" opacity="1" stroke="none" vectornator:layerName="path"/>' +
   "</g></g></g></g></svg>";
 
-export const SmallWaypoint = (props: any) => {
+interface IWaypoint {
+  waypoint: {
+    position: { lat: number; lng: number };
+    safe: boolean;
+  };
+  handleOpenModal: () => void;
+  recenter: () => void;
+  active: boolean;
+}
+
+export const SmallWaypoint = (props: IWaypoint) => {
   let markerSVG = redMarkerSVG;
   let bigMarkerSVG = bigRedMarkerSVG;
   if (props.waypoint.safe) {

@@ -27,7 +27,16 @@ const waterDis = [
   },
 ];
 
-export const MapBackground = (props: any) => {
+interface mapBackgroundInterface {
+  handleModalOpen: (waypoint: {
+    id: number;
+    position: { lat: number; lng: number };
+    safe: boolean;
+  }) => {},
+  handleModalClose: () => {},
+}
+
+export const MapBackground = (props: mapBackgroundInterface) => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY as string,
     libraries: ["places"],
