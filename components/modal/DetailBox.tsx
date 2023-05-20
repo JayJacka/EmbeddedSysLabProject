@@ -63,10 +63,10 @@ export default function DetailBox (props: DetailBoxProp) {
                         <div className="relative top-1"> {icon} </div>
                         <div className="relative right-2"> ตู้กดน้ำ </div>
                     </div>
-                    <div className="relative flex flex-row w-full backdrop-filter pl-3 pr-2 z-10 font-bold text-2xl text-black">
+                    <div className="mb-12 relative flex flex-row w-full backdrop-filter pl-3 pr-2 z-10 font-bold text-2xl text-black">
                         {props.waypoint.id}
                     </div>
-
+                    <div>graph</div>
                 </div>
         </button>
 
