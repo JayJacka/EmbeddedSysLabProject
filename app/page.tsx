@@ -3,6 +3,7 @@
 import { MapBackground } from "@/components/MapBackground";
 import { ModalSample } from "@/components/modal/ModalSample";
 import { useState } from "react";
+import useModal from "@/components/modal/useModal";
 
 
 export default function Home() {
@@ -15,6 +16,8 @@ export default function Home() {
     safe: boolean;
   }
 
+  const {isShowing, toggle} = useModal();
+
   const handleModalOpen = (waypoint: waypoint) => {
     console.log("handleModalOpen", waypoint);
     setWaypoint(waypoint);
@@ -22,6 +25,9 @@ export default function Home() {
   };
   const handleModalClose = () => {
     setModalOpen(false);
+    if (isShowing) {
+      toggle();
+    }
   };
   return (
     <div className="overflow-hidden">

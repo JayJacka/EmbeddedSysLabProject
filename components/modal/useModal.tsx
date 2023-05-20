@@ -5,29 +5,24 @@ interface DetailBoxProp {
         place?: string;
         tds?: Array<number>;
         current?: Array<number>;
+        safe?: Boolean;
     }
 }
 
-export default function useModal(props: DetailBoxProp) {
+export default function useModal() {
 
     const [isShowing, setShowing] = useState(false);
     const [detail, setDetail] = useState<any>(null);
 
-    const handleShowDetail = (dt: DetailBoxProp) => {
-        setShowing(true)
-        setDetail(dt)
-        console.log("showing detail")
-    }
-
-    const handleHideDetail = () => {
-        setShowing(false)
+    const toggle = () => {
+        setShowing(!isShowing)
+        
     }
 
 
 
     return {
         isShowing,
-        handleShowDetail,
-        handleHideDetail
+        toggle
     };
 }
