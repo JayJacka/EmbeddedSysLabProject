@@ -16,7 +16,6 @@ export default function Home() {
     safe: boolean;
   }
 
-  const {isShowing, toggle} = useModal();
 
   const handleModalOpen = (waypoint: waypoint) => {
     console.log("handleModalOpen", waypoint);
@@ -25,9 +24,6 @@ export default function Home() {
   };
   const handleModalClose = () => {
     setModalOpen(false);
-    if (isShowing) {
-      toggle();
-    }
   };
   return (
     <div className="overflow-hidden">
@@ -36,7 +32,7 @@ export default function Home() {
       </div>
       <ModalSample
         isOpen={modalOpen}
-        onClose={handleModalClose}
+        onOpen={handleModalOpen}
         waypoint={waypoint}
       ></ModalSample>
       <MapBackground

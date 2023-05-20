@@ -1,13 +1,7 @@
+import { useState } from "react";
 import DetailBox from "../modal/DetailBox"
+import useModal from "../modal/useModal"
 
-interface modalProp {
-  element: {
-      place?: string;
-      tds?: Array<number>;
-      current?: Array<number>;
-      safe?: Boolean;
-  }
-}
 
 export const ModalSample = (props: any) => {
 
@@ -18,16 +12,17 @@ export const ModalSample = (props: any) => {
     safe: true
   }
 
+
   if (!props.waypoint) {
     return null;
   }
   const modalClass = props.isOpen
-    ? "z-50 bottom-5 absolute w-3/4 h-36 inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-opacity transition-transform duration-300 opacity-100 translate-y-0"
-    : "bottom-5 absolute w-3/4 h-36 inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-opacity transition-transform duration-300 opacity-0 translate-y-full";
+    ? "z-50 absolute w-full h-36 inset-x-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-opacity transition-transform duration-300 opacity-100 translate-y-0"
+    : "absolute w-full h-36 inset-x-0 bottom-0 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-opacity transition-transform duration-300 opacity-0 translate-y-full";
   return (
     <>
       <div className={modalClass}>
-        <DetailBox element = {example}></DetailBox>
+        <DetailBox isOpen={props.isOpen} waypoint={props.waypoint}></DetailBox>
       </div>
     </>
   );

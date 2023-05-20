@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import React, { ReactNode } from 'react';
 import useModal from '../modal/useModal';
 
@@ -28,38 +28,45 @@ const redIcon = <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmln
 </svg>
 
 interface DetailBoxProp {
-    element: {
-        place?: string;
-        tds?: Array<number>;
-        current?: Array<number>;
-        safe?: boolean;
+    isOpen: boolean
+    waypoint: {
+        id: number;
+        position: { lat: number; lng: number };
+        safe: boolean;
     }
 }
 
 export default function DetailBox (props: DetailBoxProp) {
-    let icon = props.element.safe
+    let icon = props.waypoint.safe
     ? greenIcon
     : redIcon
     
 
-    const {isShowing, toggle} = useModal();
+    const {isShowing, setShowing} = useModal();
+
+    useEffect(() => {
+        if (!props.isOpen) {
+            setShowing(false)
+        }
+    },[props.isOpen,setShowing])
     
     const boxClass = isShowing
-    ? "z-50 bottom-5 absolute w-full h-96 inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-opacity transition-transform duration-300 opacity-100 translate-y-0"
-    : "z-50 bottom-5 absolute w-full h-36 inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-opacity transition-transform duration-300 opacity-100 translate-y-0"
+    ? "z-50 relative bottom-0 w-full h-96 inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-opacity transition-transform duration-300 opacity-100 translate-y-0"
+    : "z-50 relative bottom-0 w-full h-36 inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-opacity transition-transform duration-300 opacity-100 translate-y-0"
     
 
     return (
-        <button onClick={() => toggle()} className={boxClass}>
-                <div className="hoverflow-hidden h-full w-full bg-gray-500 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-70 border border-gray-100 flex flex-col gap-y-0"
+        <button onClick={() => setShowing(!isShowing)} className={boxClass}>
+                <div className="overflow-hidden h-full w-full bg-gray-500 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-70 border border-gray-100 flex flex-col gap-y-0"
                 >
                     <div className="relative flex flex-row gap-x-4 w-full backdrop-filter pl-4 py-4 z-10 font-bold text-xl text-black">
                         <div className="relative top-1"> {icon} </div>
                         <div className="relative right-2"> ตู้กดน้ำ </div>
                     </div>
                     <div className="relative flex flex-row w-full backdrop-filter pl-3 pr-2 z-10 font-bold text-2xl text-black">
-                        {props.element.place}
+                        {props.waypoint.id}
                     </div>
+
                 </div>
         </button>
 

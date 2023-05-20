@@ -14,15 +14,9 @@ export default function useModal() {
     const [isShowing, setShowing] = useState(false);
     const [detail, setDetail] = useState<any>(null);
 
-    const toggle = () => {
-        setShowing(!isShowing)
-        
-    }
-
-
 
     return {
         isShowing,
-        toggle
+        setShowing
     };
 }
