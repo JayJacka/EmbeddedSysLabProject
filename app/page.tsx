@@ -4,6 +4,7 @@ import { MapBackground } from "@/components/MapBackground";
 import { ModalSample } from "@/components/modal/ModalSample";
 import { useState } from "react";
 
+
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [waypoint, setWaypoint] = useState<any>(null);
