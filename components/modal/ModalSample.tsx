@@ -1,5 +1,7 @@
+import { Dashboard } from "../Dashboard";
+
 export const ModalSample = (props: any) => {
-  if (!props.waypoint) {
+  if (!props.waypoint || !props.isOpen) {
     return null;
   }
   const modalClass = props.isOpen
@@ -7,7 +9,9 @@ export const ModalSample = (props: any) => {
     : "bottom-5 absolute w-3/4 h-48 inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 transition-opacity transition-transform duration-300 opacity-0 translate-y-full";
   return (
     <>
-      <div className={modalClass}>{props.waypoint.id}</div>
+      <div className={modalClass}>
+        <Dashboard></Dashboard>
+      </div>
     </>
   );
 };
