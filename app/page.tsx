@@ -5,7 +5,6 @@ import { ModalSample } from "@/components/modal/ModalSample";
 import { useState } from "react";
 import useModal from "@/components/modal/useModal";
 
-
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [waypoint, setWaypoint] = useState<any>(null);
@@ -15,7 +14,6 @@ export default function Home() {
     position: { lat: number; lng: number };
     safe: boolean;
   }
-
 
   const handleModalOpen = (waypoint: waypoint) => {
     console.log("handleModalOpen", waypoint);

@@ -19,29 +19,29 @@ ChartJS.register(
 );
 import { Chart, Line, Bar, Scatter } from "react-chartjs-2";
 
-const data = {
-  labels: ["1", "2", "3", "4", "5", "6"],
-  datasets: [
-    {
-      label: "Water Dis",
-      data: [12, 19, 3, 5, 2, 3],
-      fill: false,
-      backgroundColor: "rgb(255, 99, 132)",
-      borderColor: "rgba(255, 99, 132, 0.2)",
-    },
-  ],
-};
 const options = {
   scales: {
     xAxis: { display: false },
-    yAxis: { display: false },
+    yAxis: { display: true },
   },
 };
 
-export const LineGraph = (props: any) => {
+export const LineGraph = (raw_data: { label: string; data: number[] }) => {
+  const data = {
+    labels: ["", "", "", "", "", "", "", "", "", "", "", ""],
+    datasets: [
+      {
+        label: raw_data.label,
+        data: raw_data.data.slice(-12),
+        fill: false,
+        backgroundColor: "rgb(255, 99, 132)",
+        borderColor: "rgba(255, 99, 132, 0.2)",
+      },
+    ],
+  };
   return (
-    <>
-      <Line data={data} width={400} height={100} options={options} />
-    </>
+    <div className="w-[40vw] h-[30vh]">
+      <Line data={data} width={100} height={100} options={options} />
+    </div>
   );
 };
